@@ -2,35 +2,32 @@
 - name: Pull docker image
   hosts: all
   tasks:
+    - name: copy docker compose file
+      copy: 
+        src: ./docker-compose.yml
+        dest: ./
+
     - name: Start docker service
       service:
         name: docker
         state: started
 
-    - name: pull docker front-end image
-      shell: docker pull jainpranay20/interestwin:cli
+    # - name: pull docker front-end image
+    #   shell: docker pull jainpranay20/interestwin:cli
 
-    - name: pull docker server image
-      shell: docker pull jainpranay20/interestwin:ser
+    # - name: pull docker server image
+    #   shell: docker pull jainpranay20/interestwin:ser
 
-    - name: Create back-end container
+    - name: docker compose pull
+      command: docker-compose pull
 
-      docker_container:
-        name: backend
 
-        image: jainpranay20/interestwin:ser
+    - name: stop previous back-end container
+      shell: docker rm -f jainpranay20/interestwin:ser
 
-        ports:
-          - "5000:5000"
+    - name: stop previous front-end container
+      shell: docker rm -f jainpranay20/interestwin:cli
 
-    - name: Create front-end container
 
-      docker_container:
-        name: frontend
-
-        image: jainpranay20/interestwin:cli
-
-        interactive: true
-
-        ports:
-          - "3000:3000"
+    - name: running docker compose file
+      shell: docker-compose up -d
