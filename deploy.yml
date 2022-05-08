@@ -1,3 +1,4 @@
+
 ---
 - name: Pull docker image
   hosts: all
@@ -30,4 +31,4 @@
 
 
     - name: running docker compose file
-      shell: docker-compose up -d
+      shell: docker-compose up 
