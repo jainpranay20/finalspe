@@ -8,7 +8,7 @@ services:
     networks:
       - mern-app
   api-server:
-    image: jainpranay/interestwin:ser
+    image: jainpranay20/interestwin:ser
     ports:
       - "5000:5000"
     networks:
